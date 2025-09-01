@@ -52,7 +52,7 @@ class GameModeUtils @Inject constructor(private val context: Context) {
         val configValue = "${packageName};;${modeData?.asConfig()}"
         Settings.Secure.putString(
                 context.contentResolver,
-                Settings.Secure.GAME_OVERLAY,
+                GAME_OVERLAY,
                 configValue
         )
     }
@@ -105,6 +105,7 @@ class GameModeUtils @Inject constructor(private val context: Context) {
     companion object {
         const val defaultPreferredMode = GameManager.GAME_MODE_STANDARD
         const val ACTION_ANGLE_FOR_ANDROID = "android.app.action.ANGLE_FOR_ANDROID"
+        private const val GAME_OVERLAY = "game_overlay"
 
         fun Context.describeGameMode(mode: Int) =
             resources.getStringArray(R.array.game_mode_names)[mode] ?: "Unsupported"

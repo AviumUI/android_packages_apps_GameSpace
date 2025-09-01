@@ -26,6 +26,9 @@ class SystemSettings @Inject constructor(
     context: Context,
     private val gameModeUtils: GameModeUtils
 ) {
+    companion object {
+        private const val SWIPE_TO_SCREENSHOT = "swipe_to_screenshot"
+    }
 
     private val resolver = context.contentResolver
 
@@ -60,12 +63,12 @@ class SystemSettings @Inject constructor(
 
     var threeScreenshot
         get() = Settings.System.getIntForUser(
-            resolver, Settings.System.SWIPE_TO_SCREENSHOT, 0,
+            resolver, SWIPE_TO_SCREENSHOT, 0,
             UserHandle.USER_CURRENT
         ) == 1
         set(it) {
             Settings.System.putIntForUser(
-                resolver, Settings.System.SWIPE_TO_SCREENSHOT,
+                resolver, SWIPE_TO_SCREENSHOT,
                 it.toInt(), UserHandle.USER_CURRENT
             )
         }

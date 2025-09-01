@@ -40,6 +40,10 @@ import kotlin.system.exitProcess
  */
 class ScreenUtils @Inject constructor(private val context: Context) {
 
+    companion object {
+        private const val LOCK_GESTURE_STATUS = "lock_gesture_status"
+    }
+
     private var isRecorderBound = false
     private var remoteRecording: IRemoteRecording? = null
     private var wakelock: PowerManager.WakeLock? = null
@@ -85,7 +89,7 @@ class ScreenUtils @Inject constructor(private val context: Context) {
         remoteRecording = null
         if (isGestureLocked) {
             Settings.System.putIntForUser(context.contentResolver,
-                    Settings.System.LOCK_GESTURE_STATUS, 0, UserHandle.USER_CURRENT)
+                    LOCK_GESTURE_STATUS, 0, UserHandle.USER_CURRENT)
             isGestureLocked = false
         }
         bypassCharge(false)
@@ -115,7 +119,7 @@ class ScreenUtils @Inject constructor(private val context: Context) {
         get() = isGestureLocked
         set(enable) {
             Settings.System.putIntForUser(context.contentResolver,
-                    Settings.System.LOCK_GESTURE_STATUS, if (enable) 1 else 0,
+                    LOCK_GESTURE_STATUS, if (enable) 1 else 0,
                     UserHandle.USER_CURRENT)
             field = enable
             isGestureLocked = enable
